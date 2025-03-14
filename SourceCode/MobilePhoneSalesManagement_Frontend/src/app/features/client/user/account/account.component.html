@@ -1,0 +1,331 @@
+<!-- /. header-section-->
+<div class="page-header">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="page-breadcrumb">
+          <ol class="breadcrumb">
+            <li><a href="/">Trang chủ</a></li>
+            <li><a href="/account">Tài khoản</a></li>
+            <li><ng-container [ngSwitch]="currentTab">
+              <span *ngSwitchCase="'account-info'">Thông tin tài khoản</span>
+              <span *ngSwitchCase="'order-management'">Quản lý đơn hàng</span>
+              <span *ngSwitchCase="'change-password'">Đổi mật khẩu</span>
+            </ng-container></li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- login-form -->
+
+<div class="content">
+  <div class="container">
+    <div class="box">
+      <div class="row-account">
+        <div class="left-container">
+          <div class="user-infor">
+            <img src="assets/images/user-img.png" alt="" />
+            <span
+              style="
+                text-transform: uppercase;
+                font-size: 14px;
+                font-weight: bold;
+                line-height: 20px;
+              "
+              >{{ this.user.fullName }}</span
+            >
+          </div>
+          <div class="side-bar-content">
+            <ul>
+              <li class="slide-bar" [class.active]="currentTab === 'account-info'" (click)="switchTab('account-info')">
+                <i class="fa fa-edit"></i><span>Thông tin tài khoản</span>
+              </li>
+              <li class="slide-bar" [class.active]="currentTab === 'order-management'" (click)="switchTab('order-management')">
+                <i class="fa fa-list"></i><span>Quản lý đơn hàng</span>
+              </li>
+              <li class="slide-bar" [class.active]="currentTab === 'change-password'" (click)="switchTab('change-password')">
+                <i class="fa fa-unlock"></i><span>Đổi mật khẩu</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="right-container">
+          <div *ngIf="currentTab === 'account-info'">
+            <h3 class="title-content">Thông tin tài khoản</h3>
+            <div class="account-infor">
+              <form (ngSubmit)="onSubmit()">
+                <div class="form-control">
+                  <label for="fullName" class="input-label">Họ & tên</label>
+                  <input
+                    id="fullName"
+                    type="text"
+                    [(ngModel)]="user.fullName"
+                    name="fullName"
+                    placeholder="Thêm họ tên"
+                    class="input-field"
+                  />
+                </div>
+
+                <div class="form-control">
+                  <label for="email" class="input-label">Email</label>
+                  <input
+                    id="email"
+                    type="email"
+                    [(ngModel)]="user.email"
+                    name="email"
+                    placeholder="Thêm email"
+                    class="input-field"
+                    readonly
+                  />
+                </div>
+
+                <div class="form-control">
+                  <label for="phoneNumber" class="input-label"
+                    >Số điện thoại</label
+                  >
+                  <input
+                    id="phoneNumber"
+                    type="tel"
+                    [(ngModel)]="user.phoneNumber"
+                    name="phoneNumber"
+                    placeholder="Thêm số điện thoại"
+                    class="input-field"
+                  />
+                </div>
+
+                <div class="form-control">
+                  <label for="address" class="input-label"
+                    >Địa chỉ giao hàng</label
+                  >
+                  <input
+                    id="address"
+                    type="text"
+                    [(ngModel)]="user.address"
+                    name="address"
+                    placeholder="Địa chỉ"
+                    class="input-field"
+                  />
+                </div>
+
+                <div class="form-control">
+                  <label for="dateOfBirth" class="input-label">Ngày sinh</label>
+                  <input
+                    id="dateOfBirth"
+                    type="date"
+                    [(ngModel)]="user.dateOfBirth"
+                    name="dateOfBirth"
+                    placeholder="Thêm ngày sinh"
+                    class="input-field"
+                  />
+                </div>
+
+                <div class="form-control">
+                  <label for="gender" class="input-label">Giới tính</label>
+                  <input
+                    type="radio"
+                    name="gender"
+                    value="Nam"
+                    [(ngModel)]="user.gender"
+                    class="input-radio"
+                  />
+                  Nam
+                  <input
+                    type="radio"
+                    name="gender"
+                    value="Nữ"
+                    [(ngModel)]="user.gender"
+                    class="input-radio"
+                  />
+                  Nữ
+                </div>
+
+                <button class="btn-update" type="submit">Cập nhật</button>
+              </form>
+            </div>
+          </div>
+          <div *ngIf="currentTab === 'order-management'">
+            <h3 class="title-content" *ngIf="!isDetailView">Đơn hàng đã đặt</h3>
+            <h3 class="title-content" *ngIf="isDetailView">Chi tiết đơn hàng</h3>
+          
+            <div *ngIf="!isDetailView">
+              <div class="receipt-infor">
+                <!-- Danh sách đơn hàng -->
+                
+                <table class="table table-hover">
+                  <thead class="thead-light">
+                    <tr>
+                      <th scope="col">Mã đơn hàng</th>
+                      <th scope="col">Tên khách hàng</th>
+                      <th scope="col">Ngày đặt hàng</th>
+                      <th scope="col">Chi tiết đơn hàng</th>
+                      <th scope="col">Tình trạng đơn hàng</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let item of orders">
+                      <th scope="row">{{ 'DH00' + item.orderId }}</th>
+                      <td>{{ item.customerName }}</td>
+                      <td>{{ item.orderDate | date: 'dd/MM/yyyy' }}</td>
+                      <td><a (click)="viewOrderDetails(item)">Xem chi tiết</a></td>
+                      <td>{{ transform(item.orderStatus) }}</td>
+                    </tr>
+                  </tbody>
+                </table>
+            
+              </div>
+            </div>
+            
+            <!-- Nội dung chi tiết đơn hàng -->
+            <div *ngIf="isDetailView">
+              <div class="receipt-infor-details">
+                <div class="title-receipt">
+                  <div class="left-content content">
+                    <h4>ĐƠN HÀNG</h4>
+                    <p class="receipt-id">Mã đơn hàng: DH00{{ selectedOrder?.orderId }}</p>
+                    <p class="receipt-time">Đặt hàng: {{ selectedOrder?.orderDate | date: 'dd/MM/yyyy' }}</p>
+                  </div>
+                  <p></p>
+                  <div class="right-content content">
+                    <h4>THÔNG TIN NHẬN HÀNG</h4>
+                    <p><strong>{{ selectedOrder?.customerName }}</strong> - {{ selectedOrder?.orderClientDetailVm.orderInfoVm.phone }}</p>
+                    <p class="address">{{ selectedOrder?.orderClientDetailVm.orderInfoVm.address }}</p>
+                  </div>
+                </div>
+            
+                <table class="table">
+                  <thead class="thead-light">
+                    <tr>
+                      <th>Sản phẩm</th>
+                      <th scope="col">Đơn giá</th>
+                      <th scope="col">Số lượng</th>
+                      <th scope="col">Thành tiền</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let item of selectedOrder?.orderClientDetailVm?.cartItems">
+                      <td>
+                        <div class="product-title">
+                          <div class="box_img">
+                            <img [src]="'data:image/jpeg;base64,' + item.product.imageUrl"  alt="{{ item.product.productName }}">
+                          </div>
+                          <div>
+                            <p>{{ item.product.productName }}</p>
+                            <p>Màu sắc: {{ item.product.color }}</p>
+                          </div>
+                        </div>
+                      </td>
+                      <td><div class="item-center">{{ item.product.price | currency: 'VND' }}</div></td>
+                      <td><div class="item-center">{{ item.quantity }}</div></td>
+                      <td><div class="item-center">{{ item.quantity * item.product.price | currency: 'VND' }}</div></td>
+                    </tr>
+                  </tbody>
+            
+                  <tfoot>
+                    <tr>
+                      <td scope="row"></td>
+                      <td></td>
+                      <td scope="row">
+                        <div>
+                          <p>Tổng tiền:</p>
+                          <p>Phí vận chuyển:</p>
+                          <p>Tổng thanh toán:</p>
+                        </div>
+                      </td>
+                      <td>
+                        <div>
+                          <p>{{ selectedOrder?.orderClientDetailVm?.totalAmount | currency: 'VND' }}</p>
+                          <p>
+                            {{ (selectedOrder?.orderClientDetailVm?.totalAmount * 0.02) | currency: 'VND' }}
+                          </p>
+                          <p>
+                            {{ (selectedOrder?.orderClientDetailVm?.totalAmount + (selectedOrder?.orderClientDetailVm?.totalAmount * 0.02)) | currency: 'VND' }}
+                          </p>
+                        </div>
+                      </td>
+                    </tr>
+                  </tfoot>
+                </table>
+                <div class="cancel-order-btn" *ngIf="selectedOrder?.orderStatus === 'Pending'">
+                  <button class="btn btn-danger btn_cancel" (click)="cancelOrder(selectedOrder?.orderId)">
+                    Hủy đơn hàng
+                  </button>
+                </div>
+                <a class="redirect-to-receipt text-blue" (click)="goBack()">
+                  <i class="fas fa-long-arrow-alt-left"></i> Danh sách đơn hàng
+                </a>
+              </div>
+            </div>
+          </div>
+          
+
+          <div *ngIf="currentTab === 'change-password'">
+            <h3 class="title-content">Đổi mật khẩu</h3>
+            <div class="reset-password-content">
+              <form (ngSubmit)="onChangePassword(changePasswordForm)" #changePasswordForm="ngForm">
+                <div class="form-control">
+                  <label for="currentPassword" class="input-label">Mật khẩu hiện tại</label>
+                  <input
+                    type="password"
+                    class="input-field"
+                    id="currentPassword"
+                    [(ngModel)]="passwordModel.currentPassword"
+                    name="currentPassword"
+                    placeholder="Nhập mật khẩu hiện tại"
+                    required
+                  />
+                </div>
+                <div class="form-control">
+                  <label for="newPassword" class="input-label">Mật khẩu mới</label>
+                  <input
+                    type="password"
+                    class="input-field"
+                    id="newPassword"
+                    [(ngModel)]="passwordModel.password"
+                    name="password"
+                    placeholder="Nhập mật khẩu mới"
+                    #password = "ngModel"
+                    required
+                  />
+                </div>
+                <div
+                      *ngIf="password.errors?.['weakPassword'] && (changePasswordForm.controls['password']?.touched || changePasswordForm.submitted)"
+                      class="text-danger"
+                      style="position: relative;
+                      left: 155px;
+                      top: -5px;"
+                    >
+                      Mật khẩu chưa đủ mạnh.
+                    </div>
+                <div class="form-control">
+                  <label for="confirmPassword" class="input-label">Nhập lại mật khẩu</label>
+                  <input
+                    type="password"
+                    class="input-field"
+                    id="re_password"
+                    [(ngModel)]="passwordModel.re_password"
+                    name="re_password"
+                    placeholder="Nhập lại mật khẩu mới"
+                    required
+                    #re_password="ngModel"
+                  />
+                </div>
+                <div
+                      *ngIf="re_password.errors?.['noMatch'] && (re_password.touched || changePasswordForm.submitted)"
+                      class="text-danger" style="position: relative;
+                      left: 155px;
+                      top: -5px;"
+                    >
+                      Mật khẩu không trùng khớp.
+                    </div>
+                <button type="submit" class="btn-update-password">Đổi mật khẩu</button>
+              </form>              
+            </div>
+          </div>
+        </div>
+        <!-- /.features -->
+      </div>
+    </div>
+  </div>
+</div>

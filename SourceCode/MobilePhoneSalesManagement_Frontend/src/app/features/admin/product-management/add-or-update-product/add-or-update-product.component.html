@@ -1,0 +1,149 @@
+<div class="container">
+    <h1 class="mt-3">{{ productToUpdate ? 'Cập nhật sản phẩm' : 'Thêm sản phẩm' }}</h1>
+    <form #form="ngForm" (ngSubmit)="onFormSubmit()">
+        <div class="row">
+            <div class="col-md-12 mt-3">
+                <div class="d-flex">
+                    <!-- Hình ảnh -->
+                    <div class="col-md-3 image-container">
+                        <ng-container *ngIf="model.image; else noImage">
+                            <img [src]="model.image.imageBase64" alt="Hình sản phẩm" class="img-thumbnail" />
+                        </ng-container>
+                        <ng-template #noImage>
+                            <span class="no-image-text">Không có ảnh</span>
+                        </ng-template>
+                        <div class="button-container">
+                            <button *ngIf="model.image.imageBase64" type="button" (click)="fileInput.click()"
+                                class="btn btn-secondary btn-sm">
+                                Đổi ảnh
+                            </button>
+                            <button *ngIf="!model.image.imageBase64" type="button" (click)="fileInput.click()"
+                                class="btn btn-primary btn-sm">
+                                Tải ảnh lên
+                            </button>
+                        </div>
+                        <input #fileInput type="file" (change)="onImageSelected($event)" style="display: none;" />
+                    </div>
+
+                    <!-- Thông tin sản phẩm -->
+                    <div class="col-md-9 product-info-container ms-4">
+                        <div class="row">
+                            <!-- Tên sản phẩm và Tồn Kho -->
+                            <div class="col-md-6 mb-4">
+                                <label for="productName" class="form-label">Tên Sản Phẩm</label>
+                                <input type="text" id="productName" name="name" [(ngModel)]="model.name"
+                                    class="form-control" required />
+                            </div>
+                            <div class="col-md-6 mb-4">
+                                <label for="stockQuantity" class="form-label">Tồn Kho</label>
+                                <input type="number" id="stockQuantity" name="stockQuantity"
+                                    [(ngModel)]="model.stockQuantity" class="form-control" required />
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <!-- Giảm giá, Giá, Giá cũ -->
+                            <div class="col-md-4 mb-4">
+                                <label for="discount" class="form-label">Giảm Giá</label>
+                                <input type="number" id="discount" name="discount" [(ngModel)]="model.discount"
+                                    class="form-control" />
+                            </div>
+                            <div class="col-md-4 mb-4">
+                                <label for="price" class="form-label">Giá</label>
+                                <input type="number" id="price" name="price" [(ngModel)]="model.price"
+                                    class="form-control" required />
+                            </div>
+                            <div class="col-md-4 mb-4">
+                                <label for="oldPrice" class="form-label">Giá Cũ</label>
+                                <input type="number" id="oldPrice" name="oldPrice" [(ngModel)]="model.oldPrice"
+                                    class="form-control" required />
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <!-- Nhà sản xuất và Thương hiệu -->
+                            <div class="col-md-6 mb-4">
+                                <label for="brandId" class="form-label">Thương Hiệu</label>
+                                <select id="brandId" name="brandId" [(ngModel)]="model.brandId" class="form-control"
+                                    required>
+                                    <ng-container *ngIf="brands$ | async as brands">
+                                        <option *ngFor="let brand of brands" [value]="brand.brandId">{{ brand.name }}
+                                        </option>
+                                    </ng-container>
+                                </select>
+                            </div>
+                            <div class="col-md-6 mb-4">
+                                <label for="manufacturer" class="form-label">Nhà Sản Xuất</label>
+                                <input type="text" id="manufacturer" name="manufacturer"
+                                    [(ngModel)]="model.manufacturer" class="form-control" required />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Màu sắc -->
+        <div class="mt-3 custom-spec-container ">
+            <div class="col-md-12 mb-3">
+                <label for="presetColors" class="form-label">Chọn Màu</label>
+                <div class="d-flex flex-wrap">
+                    <div *ngFor="let color of presetColors" class="color-option" [style.background-color]="color"
+                        (click)="selectPresetColor(color)"
+                        style="width: 40px; height: 40px; margin: 5px; border-radius: 50%; cursor: pointer;">
+                        <div *ngIf="isColorSelected(color)" class="color-tick">✔</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mô tả -->
+        <div class="mt-3 custom-spec-container ">
+            <div class="col-md-12 mb-3">
+                <label for="description" class="form-label">Mô Tả</label>
+                <textarea id="description" name="description" [(ngModel)]="model.description" required></textarea>
+            </div>
+        </div>
+
+        <div class="mt-3 custom-spec-container">
+            <h3 class="form-label">Thông Số Kỹ Thuật
+                <button type="button" class="btn btn-primary ms-2" (click)="showOnhowOnSpecificationType()"><i
+                        class="fas fa-cogs"></i> </button>
+            </h3>
+            <div *ngFor="let spec of model.productSpecifications; let i = index">
+                <div class="d-flex align-items-center mb-2">
+                    <input [(ngModel)]="spec.specificationType.name" [name]="'new specification type' + i"
+                        class="spec-select me-2" placeholder="Loại thông số" [disabled]="true" />
+                    <input [(ngModel)]="spec.value" [name]="'specValue' + i" class="spec-btn me-2"
+                        placeholder="Giá trị" />
+                    <button type="button" class="btn btn-danger ms-2" (click)="removeSpecification(i)">Xóa</button>
+                </div>
+            </div>
+
+            <div class="mb-2" *ngIf="specificationTypes$ | async as specTypes">
+                <div class="d-flex align-items-center mb-2" *ngIf="specTypes.length > 0">
+                    <select class="spec-select me-2" [(ngModel)]="selectedSpecificationType"
+                        name="selectedSpecificationType">
+                        <ng-container>
+                            <option *ngFor="let type of specTypes" [ngValue]="type">{{ type.name }}</option>
+                        </ng-container>
+                    </select>
+                    <button type="button" class="spec-btn me-2" (click)="addSpecification()">Thêm Thông Số</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Nút lưu và nút làm mới -->
+        <div class="mt-3 d-flex justify-content-center">
+            <button class="btn btn-secondary me-2" type="button" (click)="resetForm()">Làm Mới</button>
+            <button class="btn btn-primary" type="submit">Lưu</button>
+        </div>
+    </form>
+</div>
+
+<div *ngIf="isAddSpecificationType" class="overlay" (click)="hideAddSpecificationType()"></div>
+<div *ngIf="isAddSpecificationType" class="modal-container-specification">
+    <app-specification-type-management [specificationTypes]="specificationTypes$" (close)="hideAddSpecificationType()">
+    </app-specification-type-management>
+</div>

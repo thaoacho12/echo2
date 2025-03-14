@@ -1,0 +1,38 @@
+<div class="container">
+    <h1 class="mt-4 text-center">{{ brandToUpdate ? 'Cập nhật thương hiệu' : 'Thêm thương hiệu' }}</h1>
+    <form #form="ngForm" (ngSubmit)="onFormSubmit()">
+        <div class="mt-4 d-flex justify-content-center">
+            <div class="input-container">
+                <label for="brandName" class="form-label">Tên thương hiệu</label>
+                <input type="text" id="brandName" name="brandName" [(ngModel)]="model.name" class="form-control"
+                    placeholder="Nhập tên thương hiệu" required />
+            </div>
+        </div>
+
+        <div class="row justify-content-center">
+            <div class="col-md-6 mt-4">
+                <div class="image-container">
+                    <ng-container *ngIf="model.image.imageBase64; else noImage">
+                        <img [src]="model.image.imageBase64" alt="Hình sản phẩm" class="img-thumbnail" />
+                    </ng-container>
+                    <ng-template #noImage>
+                        <span class="no-image-text">Không có ảnh</span>
+                    </ng-template>
+                    <div class="mt-2 text-center">
+                        <button type="button" (click)="fileInput.click()" class="btn btn-sm"
+                            [ngClass]="model.image.imageBase64 ? 'btn-secondary' : 'btn-primary'">
+                            {{ model.image.imageBase64 ? 'Đổi ảnh' : 'Tải ảnh lên' }}
+                        </button>
+                        <input #fileInput type="file" (change)="onImageSelected($event)" hidden />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-4 text-center">
+            <button class="btn btn-primary" type="submit" [disabled]="form.invalid">
+                {{ brandToUpdate ? 'Cập nhật' : 'Thêm mới' }}
+            </button>
+        </div>
+    </form>
+</div>

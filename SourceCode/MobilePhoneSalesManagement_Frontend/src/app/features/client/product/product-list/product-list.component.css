@@ -1,0 +1,159 @@
+.card {
+    display: flex;
+    transition: transform 0.3s, box-shadow 0.3s;
+    flex-direction: column;
+}
+
+.card:hover {
+    transform: scale(1.05);
+}
+
+.form-check-label {
+    font-size: 0.9rem;
+}
+
+select.form-select {
+    font-size: 0.9rem;
+}
+
+h5 {
+    font-weight: bold;
+}
+
+.container {
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    padding: 16px;
+}
+
+hr {
+    border-color: #ddd;
+}
+
+.change-pages {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    /* Căn giữa theo chiều ngang */
+    align-items: center;
+    /* Căn giữa theo chiều dọc */
+}
+
+.btn-pages {
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.btn-add1 {
+    display: flex;
+    flex-direction: column;
+    /* Xếp các nút theo chiều dọc */
+    justify-content: center;
+    /* Căn giữa theo chiều dọc */
+    align-items: center;
+    /* Căn giữa theo chiều ngang */
+    gap: 10px;
+    /* Khoảng cách giữa các nút */
+}
+
+.btn-them {
+    width: 100%;
+    /* Đảm bảo các nút chiếm toàn bộ chiều rộng của container */
+}
+
+/* Nhóm bộ lọc */
+.filter-group {
+    margin-bottom: 1.5rem;
+}
+
+.filter-header {
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+}
+
+/* Danh sách bộ lọc */
+.filter-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.filter-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.5rem;
+    font-size: 14px;
+}
+
+/* Input checkbox và nhãn */
+.form-check-input {
+    margin-right: 8px;
+    width: 16px;
+    height: 16px;
+}
+
+.form-check-label {
+    cursor: pointer;
+    color: #333;
+    font-size: 14px;
+}
+
+/* Thay đổi trạng thái hover */
+.filter-item:hover .form-check-label {
+    color: #007bff;
+    text-decoration: underline;
+}
+
+/* Khoảng cách giữa các nhóm */
+.filter-group+.filter-group {
+    margin-top: 1rem;
+}
+
+/* Toggle icon */
+.toggle-icon {
+    font-size: 18px;
+    transition: all 0.2s ease;
+}
+
+.sort-text {
+    font-size: 20px;
+}
+
+.sort-box {
+    margin-bottom: 20px;
+}
+
+.filter-box {
+    margin-top: 80px;
+}
+
+.current-price {
+    font-weight: bold;
+}
+
+.old-price {
+    text-decoration-line: line-through;
+}
+
+p {
+    margin: 0px 0 0px;
+}
+
+h5 {
+    font-size: 16px;
+    font-weight: 400;
+}
+
+.btn-sm {
+    width: 100%;
+    padding: 12px 22px;
+    font-size: 12px;
+}
+.margin_bottom {
+    margin-bottom: 14px;
+}

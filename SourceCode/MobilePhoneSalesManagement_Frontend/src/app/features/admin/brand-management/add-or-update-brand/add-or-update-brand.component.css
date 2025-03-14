@@ -1,0 +1,167 @@
+/* Form container bên trong modal */
+.container {
+    width: 100%;
+    padding: 20px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    overflow-y: auto;
+    max-height: calc(100vh - 40px);
+    /* Đảm bảo không vượt quá chiều cao modal */
+}
+
+/* Tiêu đề */
+h1 {
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 20px;
+    color: #343a40;
+}
+
+/* Input và label */
+.form-label {
+    font-size: 14px;
+    font-weight: 500;
+    color: #495057;
+    margin-bottom: 6px;
+}
+
+.form-control {
+    width: 100%;
+    padding: 8px 12px;
+    font-size: 14px;
+    border: 1px solid #ced4da;
+    border-radius: 6px;
+    background-color: #fff;
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.075);
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.form-control:focus {
+    border-color: #80bdff;
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+/* Image container */
+.image-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-width: 240px;
+    height: 260px;
+    border: 1px dashed #ced4da;
+    border-radius: 8px;
+    background-color: #e9ecef;
+    margin: 0 auto;
+}
+
+.img-thumbnail {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: cover;
+    border-radius: 6px;
+    border: 1px solid #dee2e6;
+}
+
+.no-image-text {
+    color: #6c757d;
+    font-size: 14px;
+    text-align: center;
+}
+
+/* Nút */
+button {
+    font-size: 14px;
+    padding: 6px 12px;
+    border-radius: 6px;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+    color: #fff;
+}
+
+.btn-secondary {
+    background-color: #6c757d;
+    color: #fff;
+    border: none;
+}
+
+.btn-secondary:hover {
+    background-color: #5a6268;
+    color: #fff;
+}
+
+/* Checkbox */
+.form-check-input {
+    width: 16px;
+    height: 16px;
+    margin-top: 4px;
+    margin-right: 8px;
+}
+
+.form-check-label {
+    font-size: 14px;
+    color: #495057;
+}
+
+/* Căn chỉnh nút ở trung tâm */
+.text-center {
+    text-align: center;
+}
+
+/* Cách nhau giữa các phần */
+.mt-4 {
+    margin-top: 1.5rem;
+}
+
+.mt-3 {
+    margin-top: 1rem;
+}
+
+/* Container cho nhãn và input */
+.input-container {
+    width: 50%;
+    /* Giảm chiều rộng xuống 50% */
+    text-align: center;
+    /* Căn giữa toàn bộ container */
+}
+
+/* Nhãn */
+.input-container .form-label {
+    display: block;
+    font-size: 14px;
+    font-weight: 500;
+    color: #495057;
+    margin-bottom: 6px;
+}
+
+/* Input */
+.input-container .form-control {
+    width: 100%;
+    /* Input sẽ chiếm toàn bộ chiều rộng của container */
+    padding: 8px 12px;
+    font-size: 14px;
+    border: 1px solid #ced4da;
+    border-radius: 6px;
+    background-color: #fff;
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.075);
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.input-container .form-control:focus {
+    border-color: #80bdff;
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}

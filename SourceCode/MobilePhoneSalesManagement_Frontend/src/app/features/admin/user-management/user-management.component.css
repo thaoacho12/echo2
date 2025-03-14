@@ -1,0 +1,32 @@
+.table-responsive {
+  max-height: 350px; /* Chiều cao cố định */
+  overflow-y: auto; /* Cho phép cuộn dọc */
+  max-width: 100%;
+  width: 100%;
+  overflow-x: hidden;
+}
+.table-responsive::-webkit-scrollbar {
+  display: none;
+}
+
+/* Đảm bảo phần thead luôn cố định */
+.table thead {
+  position: sticky;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 2; /* Đảm bảo thead nằm trên tbody */
+  background-color: #f8f9fa; /* Màu nền */
+}
+
+/* Định dạng ô bảng */
+.table tbody td {
+  vertical-align: middle;
+}
+#show, .input_serach {
+  height: 30px !important;
+}
+.sizeTh1 {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}

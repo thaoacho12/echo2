@@ -1,0 +1,227 @@
+<!-- <p>product-detail xcvxcvxcvcx!</p> -->
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Danh Sách Sản Phẩm</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .product-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .product-card {
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            width: 200px;
+            padding: 15px;
+            text-align: center;
+        }
+
+        .product-card img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        .product-card h3 {
+            font-size: 18px;
+            margin: 10px 0;
+        }
+
+        .product-card a {
+            display: block;
+            margin-top: 10px;
+            text-decoration: none;
+            color: white;
+            background: #007bff;
+            padding: 8px;
+            border-radius: 4px;
+        }
+
+        .product-card a:hover {
+            background: #0056b3;
+        }
+    </style>
+</head>
+
+<!-- <body>
+    <h1>Danh Sách Sản Phẩm</h1>
+    <div class="product-list">
+        <div class="product-card">
+            <img src="https://via.placeholder.com/200x150" alt="Sản phẩm 1">
+            <h3>Sản phẩm 1</h3>
+            <a href="product-detail.html?id=1">Xem chi tiết</a>
+        </div>
+        <div class="product-card">
+            <img src="https://via.placeholder.com/200x150" alt="Sản phẩm 2">
+            <h3>Sản phẩm 2</h3>
+            <a href="product-detail.html?id=2">Xem chi tiết</a>
+        </div>
+        <div class="product-card">
+            <img src="https://via.placeholder.com/200x150" alt="Sản phẩm 3">
+            <h3>Sản phẩm 3</h3>
+            <a href="product-detail.html?id=3">Xem chi tiết</a>
+        </div>
+    </div>
+</body> -->
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chi Tiết Sản Phẩm</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .product-image {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+        }
+
+        .product-title {
+            font-size: 24px;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+
+        .product-price {
+            color: #e74c3c;
+            font-size: 20px;
+            margin: 10px 0;
+        }
+
+        .product-description {
+            margin: 15px 0;
+            line-height: 1.8;
+        }
+
+        .reviews {
+            margin-top: 30px;
+        }
+
+        .review {
+            border-bottom: 1px solid #ddd;
+            padding: 10px 0;
+        }
+
+        .review:last-child {
+            border-bottom: none;
+        }
+
+        .review-author {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .review-comment {
+            margin-bottom: 5px;
+        }
+
+        .review-rating {
+            color: #f1c40f;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <!-- Thông tin sản phẩm -->
+        <img src="https://via.placeholder.com/800x400" alt="Tên sản phẩm" class="product-image">
+        <h1 class="product-title">iPhone 16 Promax </h1>
+        <p class="product-price">1,500,000 VND</p>
+        <p class="product-description">
+            Bộ nhớ: 128GB
+            RAM: 8GB
+            Pin: 4000mAh
+            Đây là mô tả chi tiết của sản phẩm. Sản phẩm này có chất lượng cao, thiết kế hiện đại và
+            phù hợp với nhiều nhu cầu sử dụng khác nhau. Hãy tận hưởng trải nghiệm tuyệt vời khi sử dụng sản phẩm này!
+            Hệ thống camera mới.
+            Chụp gần chụp xa,
+            đẹp hoàn hảo cả.
+            Hệ thống camera linh hoạt mới của iPhone 16 chụp ảnh đẹp lung linh - dù từ xa hay gần. Camera Fusion 48MP
+            hai trong một
+            cho phép bạn chụp hình ảnh có độ phân giải cao tuyệt đẹp hoặc phóng to với Telephoto chất lượng quang học
+            2x. Camera
+            Ultra Wide chụp ảnh macro cực cận cảnh hoặc toàn cảnh rộng hơn nữa. Tất cả giống như bạn đang sở hữu bốn ống
+            kính ngay
+            trong túi.
+        </p>
+
+        <!-- Đánh giá -->
+        <div class="reviews">
+            <h2>Đánh giá</h2>
+            <div class="review">
+                <p class="review-author">Nguyễn Văn A</p>
+                <p class="review-comment">Sản phẩm rất tốt, đáng tiền!</p>
+                <p class="review-rating">★★★★★</p>
+            </div>
+            <div class="review">
+                <p class="review-author">Trần Thị B</p>
+                <p class="review-comment">Mình đã dùng thử và thấy rất hài lòng.</p>
+                <p class="review-rating">★★★★☆</p>
+            </div>
+            <div class="review">
+                <p class="review-author">Lê Văn C</p>
+                <p class="review-comment">Chất lượng ổn, trang nay uy tín mọi nên mua hàng trang web nàynày.</p>
+                <p class="review-rating">★★★★☆</p>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
+
+<!-- product-list.component.html -->
+<div class="container py-4">
+    <div class="row g-4">
+        <div class="col-md-4" *ngIf="product">
+            <div class="card h-100">
+                <img [src]="'data:image/jpeg;base64,' + product.image.imageBase64" class="card-img-top"
+                    [alt]="product.name" style="height: 200px; object-fit: cover;" />
+                <div class="card-body">
+                    <h5 class="card-title">{{ product.name }}</h5>
+                    <p class="card-text text-danger current-price">
+                        {{ product.price | currency: 'VND' }}
+                    </p>
+                    <p class="card-text text-danger old-price">{{ product.price | currency: 'VND' }} - {{
+                        product.discount }}%</p>
+
+                    <!-- View product details -->
+                    <div class="mt-auto">
+                        <a [routerLink]="['/product', product.productId]" class="btn btn-info btn-sm w-100">
+                            Xem chi tiết
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

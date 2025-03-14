@@ -1,0 +1,35 @@
+<div class="specification-type-management">
+    <h1>Quản lý các loại thông số kỹ thuật</h1>
+
+    <ul class="specification-list" *ngIf="specificationTypes | async as specificationTypes">
+        <!-- Show an empty input for adding new specification type -->
+        <li *ngIf="isAddingNew" class="specification-item">
+            <input [(ngModel)]="newSpecificationName" class="specification-input" type="text"
+                placeholder="Nhập tên thông số...">
+            <button (click)="addSpecification()" class="btn-save">Thêm</button>
+            <button (click)="cancelAddingNew()" class="btn-delete">Hủy</button>
+        </li>
+        <li *ngFor="let spec of specificationTypes; let i = index" class="specification-item">
+            <div *ngIf="!editMode[i]" (dblclick)="toggleEditMode(i)" class="specification-view">
+                {{ spec.name }}
+            </div>
+            <input *ngIf="editMode[i]" [(ngModel)]="spec.name" (blur)="toggleEditMode(i)" class="specification-input"
+                type="text" placeholder="Nhập tên thông số..." />
+            <button *ngIf="editMode[i]" (click)="saveSpecification(i, spec)" class="btn-save btn-primary">
+                {{ !isTemporary[i] ? 'Thêm' : 'Lưu' }}
+            </button>
+            <button *ngIf="!editMode[i]" (click)="toggleEditMode(i)" class="btn-edit btn-warning">
+                Chỉnh sửa
+            </button>
+
+
+            <button (click)="deleteSpecification(i)" class="btn-delete">
+                Xóa
+            </button>
+        </li>
+
+
+    </ul>
+
+    <button class="btn-add" (click)="startAddingNew()">Thêm loại thông số</button>
+</div>

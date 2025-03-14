@@ -1,0 +1,197 @@
+<div class="content">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
+        <div class="box checkout-form">
+          <!-- checkout - form -->
+          <div class="box-head">
+            <h2 class="head-title">Thông tin của bạn</h2>
+          </div>
+          <div class="box-body">
+            <div class="row">
+                <form (ngSubmit)="onSubmit()" #checkoutForm="ngForm">
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                      <div class="form-group">
+                        <label class="control-label sr-only"></label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          placeholder="Họ"
+                          [(ngModel)]="formData.firstName"
+                          name="firstName" 
+                          required
+                        />
+                      </div>
+                    </div>
+                  
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                      <div class="form-group">
+                        <label class="control-label sr-only"></label>
+                        <input
+                          name="lastName"
+                          type="text"
+                          class="form-control"
+                          placeholder="Tên"
+                          [(ngModel)]="formData.lastName"
+                          required
+                        />
+                      </div>
+                    </div>
+                  
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                      <div class="form-group">
+                        <label class="control-label sr-only" for="email">Email</label>
+                        <input
+                          name="email"
+                          type="email"
+                          class="form-control"
+                          placeholder="Email address"
+                          [(ngModel)]="formData.email"
+                          required
+                        />
+                      </div>
+                    </div>
+                  
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                      <div class="form-group">
+                        <label class="control-label sr-only" for="phone"></label>
+                        <input
+                          name="phone"
+                          type="text"
+                          class="form-control"
+                          placeholder="Phone"
+                          [(ngModel)]="formData.phone"
+                          required
+                        />
+                      </div>
+                    </div>
+                  
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                      <div class="form-group">
+                        <label class="control-label sr-only"></label>
+                        <select name="country" class="form-control" [(ngModel)]="formData.country" required>
+                          <option value="vn">Việt Nam</option>
+                          <option value="uk">United Kingdom</option>
+                          <option value="ú">United States of America</option>
+                        </select>
+                      </div>
+                    </div>
+                  
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                      <div class="form-group">
+                        <label class="control-label sr-only"></label>
+                        <input
+                          name="address"
+                          type="text"
+                          class="form-control"
+                          placeholder="Địa chỉ"
+                          [(ngModel)]="formData.address"
+                          required
+                        />
+                      </div>
+                    </div>
+                  
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                      <div class="form-group">
+                        <label class="control-label sr-only"></label>
+                        <input
+                          name="postcode"
+                          type="text"
+                          class="form-control"
+                          placeholder="Mã khuyến mãi"
+                          [(ngModel)]="formData.postcode"
+                          required
+                        />
+                      </div>
+                    </div>
+                  
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                      <div class="form-group">
+                        <label class="control-label sr-only" for="textarea"></label>
+                        <textarea
+                          class="form-control"
+                          id="textarea"
+                          name="note"
+                          rows="4"
+                          placeholder="Ghi chú"
+                          [(ngModel)]="formData.note"
+                        ></textarea>
+                      </div>
+                  
+                      <button class="btn btn-primary" type="submit">Xác nhận thanh toán</button>
+                  
+                      <div class="checkbox alignright mt20">
+                        <label>
+                          <input type="checkbox" />
+                          <span>Đăng kí tài khoản?</span>
+                        </label>
+                      </div>
+                    </div>
+                  </form>
+                  
+                  
+              <!-- /.checkout-form -->
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- product total -->
+      <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+        <div class="box mb30">
+          <div class="box-head">
+            <h3 class="head-title">Đơn hàng của bạn</h3>
+          </div>
+          <div class="box-body">
+            <div class="table-responsive">
+              <!-- product total -->
+
+              <div class="pay-amount">
+                <table class="table mb20">
+                  <thead
+                    class=""
+                    style="
+                      border-bottom: 1px solid #e8ecf0;
+                      text-transform: uppercase;
+                    "
+                  >
+                    <tr>
+                      <th>
+                        <span>Sản phẩm</span>
+                      </th>
+                      <th style="text-align: center;">
+                        <span>Giá tiền</span>
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let item of cartItems">
+                      <th>
+                        <span>{{ item.productName }} x {{ item.quantity }}</span>
+                      </th>
+                      <td>{{ item.price | currency }}</td>
+                    </tr>
+                    <tr>
+                      <th><span>Tạm tính</span></th>
+                      <td>{{ totalAmount + discountAmount | currency }}</td>
+                    </tr>
+                    <tr>
+                      <th><span>Giảm giá</span></th>
+                      <td>{{ discountAmount | currency }}</td>
+                    </tr>
+                  </tbody>
+                  <tbody>
+                    <tr>
+                      <th><span>Tổng thanh toán</span></th>
+                      <td>{{ totalAmount | currency }}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <!-- /.product total -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,11 @@
+.box_img {
+    padding: 6px;
+    width: 80px;
+    margin-right: 8px;
+}
+
+.btn_cancel {
+    padding: 5px 10px;
+    text-transform: none;
+    font-size: 12px;
+}

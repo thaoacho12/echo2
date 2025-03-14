@@ -1,0 +1,159 @@
+<div class="container">
+    <h1 class="mt-3">DANH SÁCH THƯƠNG HIỆU</h1>
+    <div class="row mb-3">
+        <div class="col-11 d-flex align-items-center">
+            <div class="show-page">
+                Hiển thị:
+                <span>
+                    <select id="show" (change)="onItemsPerPageChange($event)">
+                        <option value="10">10</option>
+                        <option value="20">20</option>
+                        <option value="50">50</option>
+                    </select>
+                </span>
+                bản ghi
+            </div>
+            <div class="show-page ml-4">
+                Tìm kiếm:
+                <span>
+                    <input id="myInput" class="input_serach" type="text" placeholder="Nhập tên thương hiệu"
+                        (input)="onSearchKeyChange($event)" />
+                </span>
+            </div>
+            <div class="show-page arrange ml-4">
+                Chọn
+                <span>
+                    <select id="showBrand" (change)="onItemsFilerChange($event)">
+                        <option value="All">ALL</option>
+                        <option value="Active">Hoạt động</option>
+                        <option value="Inactive">Thùng rác</option>
+                    </select>
+                </span>
+            </div>
+        </div>
+        <div class="col-1 d-flex justify-content-end align-items-center">
+            <button *ngIf="selectedBrandIds.length > 0 && (filter === 'Active' || filter === 'Inactive')"
+                class="btn btn-danger sizeTh1 mr-2" title="Hiển thị danh sách thương hiệu"
+                (click)="deleteSelectedBrands()">
+                <i class="fas fa-trash-alt" style="color: white; border-radius: 4px;"></i>
+            </button>
+            <button *ngIf="selectedBrandIds.length > 0 && filter === 'Inactive'" class="btn btn-warning sizeTh1 mr-2"
+                title="Hiển thị danh sách thương hiệu" (click)="onRestoreMultipleBrands()">
+                <i class="fas fa-undo-alt"></i>
+            </button>
+            <button class="btn btn-success sizeTh1 mr-2" value="true" data-placement="top" title="Thêm người dùng"
+                (click)="showAddBrand()">
+                <i class="fas fa-plus"></i>
+            </button>
+        </div>
+    </div>
+    <div class="mt-3 table-container">
+        <ng-container *ngIf="page$ | async as page; else loading">
+            <ng-container *ngIf="page.items.length > 0; else noBrands">
+                <table class="table table-bordered mt-3" [class.loading]="isLoading">
+                    <thead>
+                        <tr>
+                            <th (click)="sort('brandCode')">Mã thương hiệu<i [class]="getSortIcon('brandCode')"></i>
+                            </th>
+                            <th>Ảnh</th>
+                            <th (click)="sort('brandName')">Tên thương hiệu<i [class]="getSortIcon('brandName')"></i>
+                            </th>
+                            <th (click)="sort('brandProductCount')" class="text-center">
+                                <span>Số lượng</span>
+                                <span>điện thoại</span><i [class]="getSortIcon('brandProductCount')"></i>
+                            </th>
+                            <th>Trạng thái</th>
+                            <th (click)="sort('updatedDate')">
+                                <span>Ngày tạo</span>
+                                <span> ,cập nhật </span><i [class]="getSortIcon('updatedDate')"></i>
+                            </th>
+                            <th *ngIf="filter === 'Active'||filter === 'Inactive'">
+                                <div class="checkbox-container">
+                                    <input *ngIf="selectedBrandIds.length == 0" type="checkbox"
+                                        [(ngModel)]="selectAllChecked" (change)="toggleSelectAll()" />
+                                    <i class="fas fa-times-circle" style="color:#ad2020;"
+                                        *ngIf="selectedBrandIds.length > 0" (click)="resetSelectedBrandIds()"></i>
+                                </div>
+                            </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let brand of page.items; let i = index; trackBy: trackByBrandId">
+                            <td class="text-center">B0{{ brand.brandId }}</td>
+                            <td>
+                                <img [src]="'data:image/jpeg;base64,' + brand.image.imageBase64" alt="Brand Image"
+                                    class="img-thumbnail" style="max-width: 100px; max-height: 100px;" />
+                            </td>
+                            <td>{{ brand.name }}</td>
+                            <td class="text-center">{{ brand.productCount }}</td>
+                            <td>
+                                <span [class.text-success]="brand.isActive" [class.text-danger]="!brand.isActive">
+                                    {{ brand.isActive ? 'Active' : 'Inactive' }}
+                                </span>
+                            </td>
+                            <td>
+                                <div>{{ brand.createdAt | date:'short' }}</div>
+                                <div>{{ brand.updatedAt | date:'short' }}</div>
+                            </td>
+                            <td *ngIf="filter === 'Active'||filter === 'Inactive'">
+                                <input type="checkbox" [(ngModel)]="brandCheckboxes[i]"
+                                    (change)="updateSelectAllState()" />
+                            </td>
+                            <td>
+                                <div class="icon-container">
+                                    <i *ngIf="filter !== 'Inactive'" (click)="updateBrand(brand.brandId)"
+                                        class="fas fa-edit"></i>
+                                    <i class="fas fa-undo" (click)="restoreBrand(brand.brandId)"
+                                        *ngIf="filter === 'Inactive'"></i>
+                                </div>
+                                <div (click)="onDeleteBrand(brand.brandId, brand.isActive)" class="icon-container">
+                                    <i class="fas fa-trash-alt"></i>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </ng-container>
+            <ng-template #noBrands>
+                <div class="text-center mt-3">
+                    <p>Không có thương hiệu nào để hiển thị.</p>
+                </div>
+            </ng-template>
+        </ng-container>
+        <ng-template #loading>
+            <div class="loading">Loading...</div>
+        </ng-template>
+    </div>
+    <div class="pagination">
+        <button (click)="previousPage()" [disabled]="page === 1">
+            <i class="fas fa-arrow-left"></i>
+        </button>
+
+        <span *ngIf="1 != page" (click)="changePage(1)">{{ 1 }}</span>
+
+        <!-- Show '...' before active page if page >= 5 -->
+        <span *ngIf="page > 2">...</span>
+
+        <!-- Active Page Number -->
+        <span class="active">{{ page }}</span>
+
+        <!-- Show '...' after active page if page < totalPages -->
+        <span *ngIf="page + 1 < totalPages">...</span>
+
+        <!-- Show Total Pages if Not Active -->
+        <span *ngIf="totalPages != page" (click)="changePage(totalPages)">{{ totalPages }}</span>
+
+        <button (click)="nextPage()" [disabled]="page === totalPages">
+            <i class="fas fa-arrow-right"></i>
+        </button>
+    </div>
+
+
+    <div *ngIf="isAddBrandVisible" class="overlay" (click)="hideAddBrand()"></div>
+
+    <div *ngIf="isAddBrandVisible" class="modal-container">
+        <app-add-or-update-brand [brandToUpdate]="brandToUpdate" (close)="hideAddBrand()" (add)="onAddBrand()">
+        </app-add-or-update-brand>
+    </div>
+</div>

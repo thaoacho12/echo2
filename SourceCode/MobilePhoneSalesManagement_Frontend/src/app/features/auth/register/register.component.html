@@ -1,0 +1,207 @@
+<div class="page-header">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="page-breadcrumb">
+          <ol class="breadcrumb">
+            <li><a href="/">Trang chủ</a></li>
+            <li>Đăng ký</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="content">
+  <div class="container">
+    <div class="box sing-form">
+      <div class="row">
+        <div
+          class="col-lg-offset-1 col-lg-5 col-md-offset-1 col-md-5 col-sm-12 col-xs-12"
+        >
+          <!-- form -->
+          <div class="box-body">
+            <div class="row">
+              <div class="col-lg-12 col-md-12 col-sm-6 col-xs-12 mb20">
+                <h3 class="mb10">Tạo tài khoản</h3>
+                <p>Vui lòng điền đầy đủ các thông tin bên dưới</p>
+              </div>
+              <form (ngSubmit)="onSubmit(registerForm)" #registerForm="ngForm">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                  <div class="form-group">
+                    <label class="control-label sr-only" for="name"></label>
+                    <input
+                      id="name"
+                      name="name"
+                      type="text"
+                      class="form-control"
+                      placeholder="Họ và tên"
+                      required
+                      [(ngModel)]="user.fullName"
+                      #name="ngModel"
+                    />
+                    <!-- Hiển thị thông báo lỗi khi form đã được gửi hoặc trường bị lỗi -->
+                    <div
+                      *ngIf="
+                        name.invalid && (name.touched || registerForm.submitted)
+                      "
+                      class="text-danger"
+                    >
+                      Họ và tên là bắt buộc.
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                  <div class="form-group">
+                    <label class="control-label sr-only" for="phone"></label>
+                    <input
+                      id="phone"
+                      name="phone"
+                      type="text"
+                      class="form-control"
+                      placeholder="Điện thoại"
+                      required
+                      [(ngModel)]="user.phoneNumber"
+                      #phone="ngModel"
+                    />
+                    <div
+                      *ngIf="
+                        phone.invalid &&
+                        (phone.touched || registerForm.submitted)
+                      "
+                      class="text-danger"
+                    >
+                      Điện thoại là bắt buộc.
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                  <div class="form-group">
+                    <label class="control-label sr-only" for="email"></label>
+                    <input
+                      id="email"
+                      name="email"
+                      type="email"
+                      class="form-control"
+                      placeholder="Email"
+                      required
+                      [(ngModel)]="user.email"
+                      #email="ngModel"
+                    />
+                    <div *ngIf="email.errors?.['invalidEmail'] && (email.touched || registerForm.submitted)" class="text-danger">
+                        Email không hợp lệ.
+                      </div>
+                  </div>
+                </div>
+
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                  <div class="form-group">
+                    <label class="control-label sr-only" for="password"></label>
+                    <input
+                      id="password"
+                      name="password"
+                      type="password"
+                      class="form-control"
+                      placeholder="Mật khẩu"
+                      required
+                      [(ngModel)]="user.password"
+                      #password="ngModel"
+                    />
+                    <div
+                      *ngIf="password.errors?.['weakPassword'] && (registerForm.controls['password']?.touched || registerForm.submitted)"
+                      class="text-danger"
+                    >
+                      Mật khẩu phải có ít nhất 6 ký tự, bao gồm chữ hoa, chữ
+                      thường và chữ số.
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                  <div class="form-group">
+                    <label
+                      class="control-label sr-only"
+                      for="re_password"
+                    ></label>
+                    <input
+                      id="re_password"
+                      name="re_password"
+                      type="password"
+                      class="form-control"
+                      placeholder="Xác nhận mật khẩu"
+                      required
+                      [(ngModel)]="user.re_password"
+                      #re_password="ngModel"
+                    />
+                    <div
+                      *ngIf="re_password.errors?.['noMatch'] && (re_password.touched || registerForm.submitted)"
+                      class="text-danger"
+                    >
+                      Mật khẩu không trùng khớp.
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                  <button class="btn btn-primary btn-block mb10" type="submit">
+                    Đăng Ký
+                  </button>
+                  <div>
+                    <p>Bạn đã có tài khoản?<a href="/login"> Đăng Nhập</a></p>
+                  </div>
+                </div>
+              </form>
+            </div>
+            <!-- /.form -->
+          </div>
+        </div>
+        <!-- features -->
+        <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12">
+          <div class="box-body">
+            <div class="feature-left">
+              <div class="feature-icon">
+                <img src="assets/images/feature_icon_1.png" alt="" />
+              </div>
+              <div class="feature-content">
+                <h4>Mức độ uy tín!</h4>
+                <p>
+                  Được đánh giá an toàn, tin cậy hàng đầu Việt Nam với nhiều
+                  chính sách hỗ trợ chăm sóc khách hàng.
+                </p>
+              </div>
+            </div>
+            <div class="feature-left">
+              <div class="feature-icon">
+                <img src="assets/images/feature_icon_2.png" alt="" />
+              </div>
+              <div class="feature-content">
+                <h4>Thanh toán tức thì!</h4>
+                <p>
+                  Thanh toán mọi nơi mọi lúc, giao dịch nhanh gọn, bảo đảm, an
+                  toàn, với liên kết 90% ngân hàng, ví tiền, VISA trong toàn
+                  quốc!
+                </p>
+              </div>
+            </div>
+            <div class="feature-left">
+              <div class="feature-icon">
+                <img src="assets/images/feature_icon_3.png" alt="" />
+              </div>
+              <div class="feature-content">
+                <h4>Ưu đãi hấp dẫn!</h4>
+                <p>
+                  Với mong muốn làm hài lòng khách hàng, Mobistore luôn mang đến
+                  những ưu đãi cực kỳ tốt với chất lượng cao
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- /.features -->
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,143 @@
+<!-- page-header -->
+<div class="page-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="page-breadcrumb">
+                    <ol class="breadcrumb">
+                        <li><a href="/">Trang chủ</a></li>
+                        <li>Sản phẩm</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container py-4">
+    <div class="row">
+        <!-- Bộ lọc -->
+        <div class="col-md-3 filter-box">
+            <div class="filter-group">
+                <h5 class="filter-header" data-toggle="collapse" data-target="#filter-brand">
+                    Hãng sản xuất <span class="toggle-icon">+</span>
+                </h5>
+                <div id="filter-brand" class="collapse">
+                    <div *ngFor="let brand of brands">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" [value]="brand"
+                                (change)="onBrandFilterChange($event)" id="{{ brand }}" />
+                            <label class="form-check-label" for="{{ brand }}">{{ brand }}</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="filter-group">
+                <h5 class="filter-header" data-toggle="collapse" data-target="#filter-price">
+                    Giá bán <span class="toggle-icon">+</span>
+                </h5>
+                <div id="filter-price" class="collapse">
+                    <div *ngFor="let price of priceRanges">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" [value]="price.value"
+                                (change)="onPriceFilterChange($event)" id="{{ price.value }}" />
+                            <label class="form-check-label" for="{{ price.value }}">{{ price.label }}</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="filter-group">
+                <h5 class="filter-header" data-toggle="collapse" data-target="#filter-screen">
+                    Màn hình <span class="toggle-icon">+</span>
+                </h5>
+                <div id="filter-screen" class="collapse">
+                    <div *ngFor="let screenSize of screenSizes">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" [value]="screenSize.value"
+                                (change)="onScreenSizeFilterChange($event)" id="{{ screenSize.value }}" />
+                            <label class="form-check-label" for="{{ screenSize.value }}">{{ screenSize.label }}</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="filter-group">
+                <h5 class="filter-header" data-toggle="collapse" data-target="#filter-memory">
+                    Bộ nhớ trong <span class="toggle-icon">+</span>
+                </h5>
+                <div id="filter-memory" class="collapse">
+                    <div *ngFor="let memory of internalMemories">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" [value]="memory.value"
+                                (change)="onInternalMemoryFilterChange($event)" id="{{ memory.value }}" />
+                            <label class="form-check-label" for="{{ memory.value }}">{{ memory.label }}</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Danh sách sản phẩm -->
+        <div class="col-md-9 ds-sp-sort">
+            <div class="d-flex justify-content-between align-items-center mb-3 sort-box">
+                <h5 class="mb-2 sort-text">Danh sách sản phẩm</h5>
+                <select class="" (change)="onSortChange($event)" aria-label="Sắp xếp">
+                    <option value="">Sắp xếp theo</option>
+                    <option value="banchay">Bán chạy</option>
+                    <option value="giathap">Giá thấp</option>
+                    <option value="giacao">Giá cao</option>
+                </select>
+            </div>
+
+            <div class="row g-4">
+                <div class="col-md-4 margin_bottom" *ngFor="let product of products">
+                    <a href="{{path}}/{{product.productId}}">
+                        <div class="card h-100">
+                            <img [src]="'data:image/jpeg;base64,' + product.image.imageBase64" class="card-img-top"
+                                [alt]="product.name" style="height: 200px; object-fit: cover;" />
+                            <div class="card-body d-flex flex-column">
+                                <h5 class="card-title">{{ product.name }}</h5>
+                                <p class="card-text text-danger current-price">{{
+                                    product.price-(product.price*product.discount/100)
+                                    | currency:
+                                    'VND' }}</p>
+                                <p class="card-text text-danger old-price">{{ product.price | currency: 'VND' }}
+                                    -{{product.discount}}%</p>
+                                <div class="mt-auto">
+                                    <button class="btn btn-primary btn-sm w-100 mb-2"
+                                        (click)="addToCart(product.productId)">
+                                        Thêm vào giỏ hàng
+                                    </button>
+                                    <button class="btn btn-outline-secondary btn-sm w-100"
+                                        (click)="toggleWishList(product.productId)">
+                                        Thêm vào Wishlist
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <!-- Chuyển trang -->
+            <div class="d-flex justify-content-center align-items-center mt-4 change-pages">
+                <button class="btn btn-secondary me-2" [disabled]="filterRequest.PageNumber === 1"
+                    (click)="changePage(filterRequest.PageNumber - 1)">
+                    Trước
+                </button>
+                <ng-container *ngFor="let page of pagination">
+                    <button class="btn btn-pages"
+                        [ngClass]="{ 'btn-primary': page === filterRequest.PageNumber, 'btn-outline-secondary': page !== filterRequest.PageNumber }"
+                        (click)="changePage(page)" *ngIf="page !== '...'">
+                        {{ page }}
+                    </button>
+                    <span *ngIf="page === '...'">...</span>
+                </ng-container>
+                <button class="btn btn-secondary ms-2" [disabled]="filterRequest.PageNumber === totalPages"
+                    (click)="changePage(filterRequest.PageNumber + 1)">
+                    Sau
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,114 @@
+.custom-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+  }
+  
+  .custom-modal {
+    background: white;
+    padding: 20px;
+    border-radius: 5px;
+    width: 400px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+  
+  .custom-modal h5 {
+    margin: 0 0 10px;
+  }
+  
+  .custom-modal p {
+    margin: 10px 0 20px;
+  }
+  
+  .modal-footer {
+    display: flex;
+    justify-content: space-around;
+  }
+  
+  .btn-secondary {
+    background: #ddd;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 3px;
+    cursor: pointer;
+  }
+  
+  .btn-primary {
+    background: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 3px;
+    cursor: pointer;
+  }
+  
+  .btn-secondary:hover {
+    background: #bbb;
+  }
+  
+  .btn-primary:hover {
+    background: #0056b3;
+  }
+  
+
+
+  /* Màu sắc cho các trạng thái */
+.label-check {
+    color: #28a745; /* Màu xanh lá cây cho trạng thái "Xác nhận đơn hàng" */
+    cursor: pointer;
+    font-size: 1.2em;
+  }
+  
+  .label-check.active:hover {
+    color: #218838; /* Màu xanh đậm hơn khi hover */
+  }
+  
+  .label-delivered {
+    color: #007bff; /* Màu xanh dương cho trạng thái "Xác nhận vận chuyển" */
+    cursor: pointer;
+    font-size: 1.2em;
+  }
+  
+  .label-delivered:hover {
+    color: #0056b3; /* Màu xanh dương đậm hơn khi hover */
+  }
+  
+  .label-cancel {
+    color: #dc3545; /* Màu đỏ cho trạng thái "Hủy đơn hàng" */
+    cursor: pointer;
+    font-size: 1.2em;
+  }
+  
+  .label-cancel:hover {
+    color: #c82333; /* Màu đỏ đậm hơn khi hover */
+  }
+  
+  /* Kiểu dáng chung cho tất cả các nút */
+  .confirm-check {
+    display: none; /* Ẩn checkbox */
+  }
+  
+  label {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5em;
+    transition: color 0.3s ease-in-out; /* Thêm hiệu ứng chuyển đổi màu */
+  }
+  
+  img {
+    width: 100%;
+    object-fit: contain;
+    height: 100%;
+  }
+  .box_img {
+    width: 82px;
+    padding: 10px;
+}

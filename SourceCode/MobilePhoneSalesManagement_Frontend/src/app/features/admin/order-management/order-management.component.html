@@ -1,0 +1,245 @@
+<div class="container-fluid">
+  <div class="border mt-3">
+    <h4 class="text-center mt-3 mb-4">Quản lí đơn hàng</h4>
+    <div class="row mb-3">
+      <div class="show-page ml-4">
+        Hiển thị:
+        <span>
+          <select id="show" (change)="onPageSizeChange($event)">
+            <option value="10">10</option>
+            <option value="20">20</option>
+            <option value="50">50</option>
+          </select>
+        </span>
+        bản ghi
+      </div>
+      <div class="show-page ml-4">
+        Tìm kiếm:
+        <span>
+          <input
+            id="myInput"
+            class="input_serach"
+            type="text"
+            placeholder="Nhập số điện thoại hoặc email"
+            (input)="onSearchKeyChange($event)"
+          />
+        </span>
+      </div>
+    </div>
+    <table class="table table-hover table-text-center" id="receipt-table">
+      <thead class="thead-light">
+        <tr>
+          <th scope="col">Mã đơn hàng</th>
+          <th scope="col">Tên khách hàng</th>
+
+          <th scope="col">Tổng giá trị</th>
+          <th scope="col">Ngày lập</th>
+
+          <th scope="col">Chi tiết đơn hàng</th>
+          <th scope="col">Trạng thái</th>
+          <th scope="col">Xác nhận đơn hàng</th>
+        </tr>
+      </thead>
+      <tbody id="content-table">
+        <tr *ngFor="let order of orders">
+          <td>{{ "DH00" + order.orderId }}</td>
+          <td>
+            {{ order.orderInfo.firstName + " " + order.orderInfo.lastName }}
+          </td>
+          <td>{{ order.totalAmount | currency : "VND" }}</td>
+          <td>{{ order.createdDate | date : "dd/MM/yyyy" }}</td>
+          <td class="detail">
+            <a (click)="openOrderModal(order)" href="#">
+              Chi tiết <i class="fa fa-external-link-alt"></i
+            ></a>
+          </td>
+          <td>{{ capitalizeFirstLetter(order.orderStatus) }}</td>
+          <td class="confirm">
+            <span>
+              <input
+                class="confirm-check"
+                type="checkbox"
+                value="confirm-check"
+                name="confirm-check"
+              />
+              <label
+                title="Xác nhận đơn hàng"
+                class="label-check active"
+                (click)="openModal({ type: 'confirmOrder', orderId: order.orderId })"
+              >
+                <i class="fas fa-check-square"></i>
+              </label>
+            </span>
+
+            <span>
+              <input
+                class="confirm-check"
+                type="checkbox"
+                value="confirm-delivered"
+                name="confirm-delivered"
+              />
+              <label
+                title="Xác nhận vận chuyển thành công"
+                class="label-delivered"
+                (click)="openModal({ type: 'confirmDelivery', orderId: order.orderId })"
+              >
+                <i class="fas fa-truck"></i>
+              </label>
+            </span>
+
+            <span>
+              <input
+                class="confirm-check"
+                type="checkbox"
+                value="confirm-cancel"
+                name="confirm-cancel"
+              />
+              <label
+                title="Hủy đơn hàng"
+                class="label-cancel warning"
+                (click)="openModal({ type: 'cancelOrder', orderId: order.orderId })"
+              >
+                <i class="fas fa-trash"></i>
+              </label>
+            </span>
+
+            <!-- Modal -->
+            <div
+              *ngIf="currentModal"
+              class="custom-modal-overlay"
+              (click)="closeModal()"
+            >
+              <div class="custom-modal" (click)="preventClose($event)">
+                <h5>{{ modalTitle }}</h5>
+                <p>{{ modalMessage }}</p>
+                <div class="modal-footer">
+                  <button
+                    type="button"
+                    class="btn-secondary"
+                    (click)="closeModal()"
+                  >
+                    Hủy
+                  </button>
+                  <button
+                    type="button"
+                    class="btn-primary"
+                    (click)="confirmAction()"
+                  >
+                    Xác nhận
+                  </button>
+                </div>
+              </div>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <!-- Modal -->
+    <div
+      class="modal fade"
+      id="exampleModal"
+      tabindex="-1"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-lg" style="min-width: 70%">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">
+              Chi tiết đơn hàng
+            </h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <!-- Hiển thị chi tiết đơn hàng -->
+            <h5>Đơn hàng: DH00{{ selectedOrder?.orderId }}</h5>
+            <table class="table table-hover">
+              <thead>
+                <tr>
+                  <th>Mã khách hàng</th>
+                  <th>Tên khách hàng</th>
+                  <th>Email</th>
+                  <th>Số điện thoại</th>
+                  <th>Địa chỉ</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>KH{{ selectedOrder?.customerId }}</td>
+                  <td>
+                    {{ selectedOrder?.orderInfo?.firstName }}
+                    {{ selectedOrder?.orderInfo?.lastName }}
+                  </td>
+                  <td>{{ selectedOrder?.orderInfo?.email }}</td>
+                  <td>{{ selectedOrder?.orderInfo?.phone }}</td>
+                  <td>{{ selectedOrder?.orderInfo?.address }}</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <table class="table table-hover">
+              <thead>
+                <tr>
+                  <th>Hình ảnh</th>
+                  <th>Mã sản phẩm</th>
+                  <th>Tên sản phẩm</th>
+                  <th>Số lượng</th>
+                  <th>Giá</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of selectedOrder?.cartItems">
+                  <td>
+                    <div class="box_img">
+                      <img
+                      [src]="'data:image/jpeg;base64,' + item.product?.imageUrl"
+                      width="100px"
+                      height="100px"
+                      [alt]="item.product?.productName"
+                    />
+                    </div>
+                  </td>
+                  <td>SP{{ item.product?.productId }}</td>
+                  <td>{{ item.product?.productName }}</td>
+                  <td>{{ item.quantity }}</td>
+                  <td>{{ item.product.price | number }}đ</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-dismiss="modal"
+            >
+              Đóng
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    class="pagination"
+    style="margin-top: 10px; text-align: right; justify-content: flex-end"
+  >
+    <button (click)="previousPage()">Trước</button>
+
+    <!-- Hiển thị trang hiện tại -->
+    <span class="active">{{ currentPage }}</span>
+
+    <!-- Không hiển thị dấu ... và trang cuối nếu chỉ có 1 trang -->
+    <span *ngIf="totalPages > 1">...</span>
+    <span *ngIf="totalPages > 1">{{ totalPages }}</span>
+
+    <button (click)="nextPage()">Sau</button>
+  </div>
+</div>

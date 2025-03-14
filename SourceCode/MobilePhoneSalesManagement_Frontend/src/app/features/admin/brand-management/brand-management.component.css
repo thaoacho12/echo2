@@ -1,0 +1,437 @@
+.text-center {
+    text-align: center !important;
+    vertical-align: middle !important;
+}
+
+h1 {
+    text-align: center;
+}
+
+.table {
+    width: 100%;
+    opacity: 0;
+    animation: fadeIn 1.5s forwards;
+    /* Thời gian hiệu ứng tăng lên 1.5s */
+}
+
+/* Hiệu ứng khi bảng hoàn thành tải */
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+/* Hiệu ứng khi bảng đang tải */
+.table.loading {
+    opacity: 0.5;
+    /* Làm mờ bảng khi đang tải */
+}
+
+/* Hiệu ứng loading */
+.loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+    font-weight: bold;
+    padding: 20px;
+    color: #007bff;
+    animation: fadeIn 1s ease-out;
+}
+
+/* Overlay khi hiển thị modal */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+}
+
+/* Modal container khi thêm hoặc cập nhật sản phẩm */
+.modal-container {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1000;
+    background-color: white;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    width: 1400px;
+    max-width: 50%;
+    min-width: 800px;
+    overflow-y: auto;
+    max-height: 100vh;
+}
+
+/* Style cho nút Update */
+.link-update {
+    color: #28a745;
+    text-decoration: none;
+    font-weight: 500;
+    padding: 4px 8px;
+    border-radius: 4px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.link-update:hover {
+    color: rgb(187, 179, 63);
+}
+
+.table td {
+    height: 65px;
+    vertical-align: middle;
+}
+
+.icon-container {
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    margin: 5px 0;
+    line-height: 40px;
+    text-align: center;
+    overflow: hidden;
+    box-sizing: border-box;
+    transition: transform 0.3s ease;
+    /* Thêm hiệu ứng khi hover */
+}
+
+.icon-container i {
+    font-size: 24px;
+    /* Kích thước icon ban đầu */
+    transition: font-size 0.3s ease;
+    /* Thêm hiệu ứng mượt mà khi thay đổi kích thước */
+}
+
+/* Thay đổi kích thước icon khi hover */
+.icon-container:hover i {
+    font-size: 35px;
+    /* Kích thước icon khi hover */
+}
+
+/* Các hiệu ứng hover riêng cho các icon */
+.bi-pencil-square:hover,
+.bi-arrow-counterclockwise:hover {
+    color: rgb(235, 118, 10);
+}
+
+.bi-trash:hover {
+    color: red;
+}
+
+
+.link-delete {
+    color: #dc3545;
+    text-decoration: none;
+    font-weight: 500;
+    padding: 4px 6px;
+    border-radius: 4px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.link-delete:hover {
+    color: #f01026;
+}
+
+.table thead th {
+    background-color: #F0F0F0;
+    /* Màu nền cho header */
+    border: none;
+    /* Loại bỏ đường viền của header */
+    padding: 15px;
+    /* Thêm khoảng cách bên trong */
+    text-align: center;
+    /* Căn giữa nội dung */
+}
+
+/* Phong cách cho các row trong table */
+.table tbody tr {
+    border-bottom: 1px solid #ADAAAA;
+    /* Đường viền dưới màu ADAAAA */
+}
+
+/* Loại bỏ viền tổng thể của bảng */
+.table {
+    border-collapse: collapse;
+    /* Gộp viền để tránh trùng lặp */
+    border: none;
+    /* Loại bỏ viền bảng */
+}
+
+/* Loại bỏ viền của các ô trong bảng */
+.table th,
+.table td {
+    border: none;
+    /* Loại bỏ viền của các ô */
+}
+
+/* Đảm bảo chỉ có viền dưới cho các hàng */
+.table tbody tr {
+    border: none;
+    /* Loại bỏ viền khác */
+    border-bottom: 1px solid #ADAAAA;
+    /* Viền dưới màu ADAAAA */
+}
+
+/* Loại bỏ viền khác của bảng */
+.table {
+    border: none;
+    padding: 0 35px;
+    /* Loại bỏ đường viền tổng thể của bảng */
+}
+
+.table td,
+.table th {
+    text-align: center;
+    vertical-align: middle;
+    padding: 0 15px;
+}
+
+.table tbody tr td {
+    height: 65px;
+}
+
+.table thead th {
+    height: 63px;
+}
+
+.container {
+    border: 1px solid #ccc;
+    padding: 10px 35px;
+    margin: 15px 0;
+    border-radius: 4px;
+    max-width: 100%;
+}
+
+#showBrand {
+    width: 120px;
+}
+
+.arrow {
+    width: 16px;
+    height: 20px;
+    object-fit: contain;
+}
+
+/* Ẩn checkbox mặc định */
+/* input[type="checkbox"] {
+    display: none;
+} */
+
+/* Tạo một vòng tròn giả thay thế checkbox */
+input[type="checkbox"]:checked+.check-icon {
+    display: inline-block;
+    font-size: 24px;
+    color: red;
+}
+
+.check-icon {
+    display: none;
+    font-size: 24px;
+
+    color: grey;
+}
+
+
+
+.checkbox-container {
+    position: relative;
+    /* Đặt vị trí của container */
+    display: inline-block;
+    /* Cho phép các phần tử con nằm cùng một dòng */
+}
+
+.checkbox-container i {
+    position: absolute;
+    right: -15px;
+    top: 50%;
+    transform: translateY(-75%);
+    cursor: pointer;
+}
+
+.text-center {
+    text-align: center !important;
+    vertical-align: middle !important;
+    color: #333333;
+    /* Màu xám đậm cho văn bản căn giữa */
+}
+
+h1 {
+    text-align: center;
+    color: #4CAF50;
+    /* Màu xanh lá cây cho tiêu đề */
+}
+
+.table {
+    width: 100%;
+    opacity: 0;
+    animation: fadeIn 1.5s forwards;
+    color: #212529;
+    /* Màu đen nhẹ cho nội dung bảng */
+}
+
+.table.loading {
+    opacity: 0.5;
+    background-color: #f5f5f5;
+    /* Màu nền nhạt khi đang tải */
+}
+
+.loading {
+    color: #007bff;
+    /* Màu xanh cho chữ 'loading' */
+}
+
+.overlay {
+    background-color: rgba(0, 0, 0, 0.5);
+    /* Màu nền tối mờ */
+}
+
+.modal-container {
+    background-color: white;
+    /* Màu trắng cho nền modal */
+    color: #212529;
+    /* Màu đen nhẹ cho nội dung modal */
+}
+
+.link-update {
+    color: #28a745;
+    /* Màu xanh lá cây */
+}
+
+.link-update:hover {
+    color: #bbff00;
+    /* Màu xanh neon khi hover */
+}
+
+.table td {
+    height: 65px;
+    vertical-align: middle;
+    color: #495057;
+    /* Màu xám đậm cho văn bản trong ô */
+}
+
+.icon-container i {
+    color: #6c757d;
+    /* Màu xám mặc định */
+}
+
+.icon-container:hover i {
+    color: #007bff;
+    /* Màu xanh dương khi hover */
+}
+
+.bi-pencil-square:hover,
+.bi-arrow-counterclockwise:hover {
+    color: rgb(235, 118, 10);
+    /* Màu cam đậm khi hover */
+}
+
+.bi-trash:hover {
+    color: red;
+    /* Màu đỏ khi hover */
+}
+
+.link-delete {
+    color: #dc3545;
+    /* Màu đỏ */
+}
+
+.link-delete:hover {
+    color: #f01026;
+    /* Màu đỏ đậm khi hover */
+}
+
+.table thead th {
+    background-color: #f0f0f0;
+    /* Màu nền xám nhạt */
+    color: #212529;
+    /* Màu đen nhẹ cho tiêu đề cột */
+}
+
+.table tbody tr {
+    border-bottom: 1px solid #adAAAA;
+    /* Viền xám nhạt */
+    color: #495057;
+    /* Màu xám đậm */
+}
+
+.container {
+    border: 1px solid #ccc;
+    /* Màu viền xám */
+    background-color: #f8f9fa;
+    /* Màu nền xám nhạt */
+    color: #212529;
+    /* Màu đen nhẹ */
+}
+
+input[type="checkbox"]:checked+.check-icon {
+    color: #28a745;
+    /* Màu xanh lá khi checkbox được chọn */
+}
+
+.check-icon {
+    color: grey;
+    /* Màu xám cho icon chưa chọn */
+}
+
+.pagination button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+}
+
+.pagination i {
+    font-size: 18px;
+    /* Thay đổi kích thước biểu tượng */
+}
+
+.pagination button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+}
+
+.pagination i {
+    font-size: 18px;
+    /* Thay đổi kích thước biểu tượng */
+}
+
+.pagination span {
+    margin: 0 5px;
+    font-size: 14px;
+}
+
+/* Màu sắc của trang được chọn */
+.pagination .active {
+    font-weight: bold;
+    color: white !important;
+    background-color: #007bff;
+    /* Màu nền của trang được chọn */
+    padding: 5px 10px;
+    border-radius: 1%;
+}
+
+/* Thêm một chút bóng đổ để nổi bật hơn */
+.pagination .active:hover {
+    box-shadow: 0px 0px 5px rgba(0, 123, 255, 0.5) !important;
+}
+
+/* Đổi màu cho các trang không được chọn */
+.pagination span {
+    color: #007bff !important;
+    cursor: pointer;
+}
+
+.pagination span:hover {
+    text-decoration: underline;
+}

@@ -1,0 +1,84 @@
+<div class="container mt-4">
+    <!-- Banner -->
+    <div class="row">
+        <div class="col-12">
+            <img src="../../../../assets/images/Product/wallpaper.jpg" alt="Banner" class="img-fluid rounded" />
+        </div>
+    </div>
+
+    <!-- Brand Logos -->
+    <div class="row text-center mt-5">
+        <div class="row">
+            <div *ngFor="let brand of ['nexus_brand', 'iphone_brand', 'samsung_brand', 'htc_brand', 'alc_brand', 'pixel_brand', 'vivo_brand']"
+                [ngClass]="brand === 'iphone_brand' ? 'col-md-6 brand-iphone' : 'col-md-3 brand-item'">
+                <img [src]="'../../../../assets/images/Product/' + brand + '.png'" alt="{{ brand }}"
+                    class="img-fluid mb-2" />
+            </div>
+        </div>
+    </div>
+
+    <!-- New Products -->
+    <div class="newestproductbox">
+        <div class="mt-5">
+            <div class="col-12">
+                <h2 class="text-center">Sản phẩm mới nhất</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3" *ngFor="let product of newestProducts">
+                <div class="card mb-4 shadow-sm">
+                    <img [src]="'data:image/jpeg;base64,' + product.image.imageBase64" class="card-img-top"
+                        alt="{{ product.name }}" />
+                    <div class="card-body">
+                        <h5 class="card-title">{{ product.name }}</h5>
+                        <p class="card-text text-danger current-price">{{
+                            product.price-(product.price*product.discount/100)
+                            | currency:
+                            'VND' }}</p>
+                        <p class="card-text text-danger old-price">{{ product.price | currency: 'VND' }}
+                            -{{product.discount}}%</p>
+                        <div class="d-flex justify-content-between">
+                            <button class="btn btn-primary btn-sm w-100 mb-2"
+                                    (click)="addToCart(product.productId)">
+                                    Thêm vào giỏ hàng
+                                </button>
+                                <button class="btn btn-outline-secondary btn-sm w-100"
+                                    (click)="toggleWishList(product.productId)">
+                                    Thêm vào Wishlist
+                                </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Discounted Products -->
+    <div class="newestproductbox">
+        <div class="mt-5">
+            <div class="col-12">
+                <h2 class="text-center">Sản phẩm ưu đãi lớn nhất</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3" *ngFor="let product of discountedProducts">
+                <div class="card mb-4 shadow-sm">
+                    <img [src]="'data:image/jpeg;base64,' + product.image.imageBase64" class="card-img-top"
+                        alt="{{ product.name }}" />
+                    <div class="card-body">
+                        <h5 class="card-title">{{ product.name }}</h5>
+                        <p class="card-text text-danger current-price">{{
+                            product.price-(product.price*product.discount/100)
+                            | currency:
+                            'VND' }}</p>
+                        <p class="card-text text-danger old-price">{{ product.price | currency: 'VND' }}
+                            -{{product.discount}}%</p>
+                        <div class="d-flex justify-content-between">
+                            <button class="btn btn-primary btn-sm">Thêm vào giỏ hàng</button>
+                            <button class="btn btn-outline-secondary btn-sm">Thêm vào Wishlist</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

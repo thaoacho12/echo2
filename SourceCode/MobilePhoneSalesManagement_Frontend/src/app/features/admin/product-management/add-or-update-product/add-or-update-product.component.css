@@ -1,0 +1,222 @@
+/* Color option */
+.color-option,
+.color-box {
+    position: relative;
+    border: 2px solid #ccc;
+    border-radius: 50%;
+    box-sizing: border-box;
+}
+
+.color-tick,
+.color-box span {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 18px;
+}
+
+/* General container */
+.container {
+    width: 100%;
+    padding: 20px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    overflow-y: auto;
+    max-height: calc(100vh - 40px);
+    height: 700px;
+}
+
+/* Title */
+h1 {
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 20px;
+    color: #343a40;
+}
+
+h3 {
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 20px;
+    color: #343a40;
+}
+
+/* Input and label */
+.form-label {
+    font-size: 14px;
+    font-weight: 500;
+    color: #495057;
+    margin-bottom: 6px;
+}
+
+.form-control {
+    width: 100%;
+    padding: 6px 10px;
+    font-size: 14px;
+    border: 1px solid #ced4da;
+    border-radius: 6px;
+    background-color: #fff;
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.075);
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.form-control:focus {
+    border-color: #80bdff;
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+/* Image container */
+.image-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-width: 240px;
+    height: 260px;
+    border: 1px dashed #ced4da;
+    border-radius: 8px;
+    background-color: #e9ecef;
+    margin: 0 auto;
+}
+
+.img-thumbnail {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: cover;
+    border-radius: 6px;
+    border: 1px solid #dee2e6;
+}
+
+.no-image-text {
+    color: #6c757d;
+    font-size: 14px;
+    text-align: center;
+}
+
+/* Button container */
+.button-container {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+button {
+    font-size: 14px;
+    padding: 6px 12px;
+    border-radius: 6px;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+}
+
+.btn-secondary {
+    background-color: #6c757d;
+    color: #fff;
+    border: none;
+}
+
+.btn-secondary:hover {
+    background-color: #5a6268;
+}
+
+/* Aligning elements */
+.d-flex {
+    justify-content: center;
+    align-items: center;
+}
+
+/* Description */
+#description {
+    width: 100%;
+    height: 150px;
+}
+
+/* Modal container */
+.modal-container-specification {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1000;
+    background-color: white;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    width: 700px;
+    max-width: 90%;
+    min-width: 800px;
+    overflow-y: auto;
+    max-height: 100vh;
+    overflow: hidden;
+    scrollbar-gutter: stable;
+}
+
+.custom-spec-container {
+    padding: 0 200px;
+}
+
+/* Specification button adjustments */
+.spec-select,
+.spec-btn {
+    width: 100%;
+    max-width: 300px;
+    padding: 6px 10px;
+    font-size: 14px;
+}
+
+.spec-btn {
+    margin-left: 8px;
+}
+
+button.ms-2 {
+    margin-left: 8px;
+}
+
+/* Đặt kích thước và style cho nút */
+button.btn {
+    font-size: 16px;
+    /* Kích thước chữ */
+    padding: 12px 30px;
+    /* Khoảng cách xung quanh nội dung (dài hơn) */
+    border-radius: 8px;
+    /* Độ bo tròn cho góc nút */
+    min-width: 160px;
+    /* Đảm bảo nút không bị quá nhỏ */
+}
+
+/* Kích thước cụ thể cho nút làm mới và nút lưu */
+button.btn-secondary {
+    font-size: 15px;
+    padding: 10px 25px;
+}
+
+button.btn-primary {
+    font-size: 15px;
+    padding: 10px 25px;
+}
+
+/* Khoảng cách giữa các nút */
+button.btn+button.btn {
+    margin-left: 15px;
+}
+
+/* Thêm hiệu ứng hover cho nút */
+button.btn:hover {
+    opacity: 0.9;
+    /* Làm mờ khi hover */
+}

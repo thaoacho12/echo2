@@ -1,0 +1,52 @@
+<div class="container">
+    <div class="row">
+
+        <div class="box">
+            <div class="box-head box-head-gray">
+                <h3 class="head-title text-center">Danh sách yêu thích</h3>
+            </div>
+            <div class="box-body box-body-gray">
+                <ul class="list-favorites">
+                    <li class="item" *ngFor="let product of wishList">
+                      <button class="btn-delete" (click)="removeFromWishList(product.productId)">×</button>
+                      <div class="thumbnail">
+                        <a [href]="'/product-single/' + product.productId" class="img">
+                          <img [src]="'data:image/jpeg;base64,' + product.imageUrl"  alt="{{ product.productName }}">
+                        </a>
+                      </div>
+                  
+                      <div class="body">
+                        <a [href]="'/product-single/' + product.productId" class="name">{{ product.productName }}</a>
+                        <div class="rating-review">
+                          <div class="rating">
+                            <!-- Giả sử bạn muốn hiển thị sao cho đánh giá -->
+                            <span *ngFor="let i of [].constructor(5); let idx = index">
+                                <i class="fa-solid fa-star"></i>
+                            </span>
+                          </div>
+                          <span class="review-count">({{ product.reviewCount }} nhận xét)</span>
+                        </div>
+                      </div>
+                  
+                      <div class="footer">
+                        <div class="price-discount">{{ product.discountedPrice | currency }}</div>
+                        <div class="wrap">
+                          <div class="price">{{ product.originalPrice | currency }}</div>
+                          <div class="discount">-{{ product.discountPercentage }}%</div>
+                        </div>
+                      </div>
+                    </li>
+                  </ul>
+                  
+            </div>
+        </div>
+        <a href="/products" class="btn-link text-center" style="display:block; margin-bottom: 20px">
+            Trở về trang mua hàng
+        </a>
+
+        <!-- cart-total -->
+
+    </div>
+    <!-- /.cart-total -->
+    <!-- </div> -->
+</div>

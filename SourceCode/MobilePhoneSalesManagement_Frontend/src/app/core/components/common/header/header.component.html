@@ -1,0 +1,65 @@
+<div class="header-wrapper">
+    <div class="container">
+        <div class="row">
+            <!-- logo -->
+            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-8">
+                <div class="logo">
+                    <a href="/"><img src="assets/images/logo.png" alt=""> </a>
+                </div>
+            </div>
+            <!-- /.logo -->
+            <!-- search -->
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                <div class="search-bg">
+                    <input type="text" class="form-control" placeholder="Search Here" [(ngModel)]="searchKeyword"
+                        (keydown.enter)="onSearch()" />
+                    <button type="Submit" (click)="onSearch()"><i class="fa fa-search"></i></button>
+                </div>
+            </div>
+            <!-- /.search -->
+            <!-- account -->
+            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                <div class="account-section">
+                    <ul>
+                        <li><a href="/account" class="title hidden-xs">Tài khoản</a></li>
+                        <li class="hidden-xs">|</li>
+                        <li *ngIf="isAuthenticated; else loginLink">
+                            <a (click)="logout()" class="title hidden-xs" style="cursor: pointer;">Đăng xuất</a>
+                        </li>
+                        <ng-template #loginLink>
+                            <li><a href="/login" class="title hidden-xs">Đăng nhập</a></li>
+                          </ng-template>
+                        <li><a href="/wishlist"><i class="fa fa-heart"></i></a></li>
+                        <li><a href="/cart" class="title"><i class="fa fa-shopping-cart"></i>   <sup class="cart-quantity">{{ this.count }}</sup></a>
+                        </li>
+                    </ul>
+                </div>
+                <!-- /.account -->
+            </div>
+            <!-- search -->
+        </div>
+    </div>
+    <!-- navigation -->
+    <div class="navigation">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <!-- navigations-->
+                    <div id="navigation">
+                        <ul>
+                            <li class="active"><a href="/home">Trang chủ</a></li>
+                            <li><a href="/products">Điện thoại</a>
+                            </li>
+                            <li><a href="/about">Thông tin</a>
+                            </li>
+                            <li><a href="/blogs">Bài viết</a> </li>
+                            <li><a href="/contact">Liên hệ, hỗ trợ</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- /.navigations-->
+            </div>
+        </div>
+    </div>
+</div>

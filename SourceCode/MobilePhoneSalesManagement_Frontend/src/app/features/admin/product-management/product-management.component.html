@@ -1,0 +1,198 @@
+<div class="container">
+    <h1 class="mt-3">DANH SÁCH SẢN PHẨM</h1>
+    <div class="row mb-3">
+        <div class="col-11 d-flex align-items-center">
+            <div class="show-page">
+                Hiển thị:
+                <span>
+                    <select id="show" (change)="onItemsPerPageChange($event)">
+                        <option value="10">10</option>
+                        <option value="20">20</option>
+                        <option value="50">50</option>
+                    </select>
+                </span>
+                bản ghi
+            </div>
+            <div class="show-page ml-4">
+                Tìm kiếm:
+                <span>
+                    <input id="myInput" class="input_serach" type="text" placeholder="Nhập tên thương hiệu"
+                        (input)="onSearchKeyChange($event)" />
+                </span>
+            </div>
+            <div class="show-page arrange ml-4">
+                Chọn
+                <span>
+                    <select id="showProduct" (change)="onItemsFilerChange($event)">
+                        <option value="All">ALL</option>
+                        <option value="Active">Hoạt động</option>
+                        <option value="Inactive">Thùng rác</option>
+                    </select>
+                </span>
+            </div>
+
+        </div>
+        <div class="col-1 d-flex justify-content-end align-items-center">
+            <button *ngIf="selectedProductIds.length > 0&&(filter === 'Active'||filter === 'Inactive')"
+                class="btn btn-danger sizeTh1 mr-2" title="Hiển thị danh sách thương hiệu"
+                (click)="deleteSelectedProducts()">
+                <i class="fas fa-trash-alt" style="color: white; border-radius: 4px;"></i>
+            </button>
+            <button *ngIf="selectedProductIds.length > 0 && filter === 'Inactive'" class="btn btn-warning sizeTh1 mr-2"
+                title="Hiển thị danh sách thương hiệu" (click)="onRestoreMultipleProducts()">
+                <i class="fas fa-undo-alt"></i>
+            </button>
+            <button class="btn btn-success sizeTh1 mr-2" value="true" data-placement="top" title="Thêm người dùng"
+                (click)="showAddProduct()">
+                <i class="txt-center fas fa-plus"></i>
+            </button>
+        </div>
+    </div>
+    <div class="mt-3 table-container">
+        <ng-container *ngIf="page$ | async as page; else loading">
+            <!-- Kiểm tra nếu danh sách trống -->
+            <ng-container *ngIf="page.items.length > 0; else noProducts">
+                <table class="table table-bordered mt-3" [class.loading]="isLoading">
+                    <thead>
+                        <tr>
+                            <th (click)="sort('productCode')">Mã SP<i [class]="getSortIcon('productCode')"></i>
+                            </th>
+                            <th>Ảnh</th>
+                            <th (click)="sort('productName')"> Tên <i [class]="getSortIcon('productName')"></i>
+                            </th>
+                            <th (click)="sort('productstockQuantity')">Số lượng<i
+                                    [class]="getSortIcon('productstockQuantity')"></i></th>
+                            <th (click)="sort('productPrice')">
+                                <span>Giá Bán</span><i [class]="getSortIcon('productPrice')"></i>
+                            </th>
+                            <th>thương hiệu</th>
+                            <th>Các Thông số</th>
+                            <th>Trạng thái</th>
+                            <th (click)="sort('updatedDate')">
+                                <span>Ngày tạo</span>
+                                <span> ,cập nhật </span><i [class]="getSortIcon('updatedDate')"></i>
+                            </th>
+                            <th *ngIf="filter === 'Active' || filter === 'Inactive'">
+                                <div class="checkbox-container">
+                                    <input *ngIf="selectedProductIds.length == 0" type="checkbox"
+                                        [(ngModel)]="selectAllChecked" (change)="toggleSelectAll()" />
+                                    <i class="fas fa-times-circle" style="color:#ad2020;"
+                                        *ngIf="selectedProductIds.length > 0" (click)="resetSelectedProductIds()">
+                                    </i>
+                                </div>
+
+                            </th>
+                            <th>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let product of page.items;let i = index; trackBy: trackByProductId">
+                            <td class="text-center">P0{{ product.productId }}</td>
+                            <td>
+                                <img [src]="'data:image/jpeg;base64,' + product.image.imageBase64" alt="Product Image"
+                                    class="img-thumbnail" style="max-width: 100px; max-height: 100px;" />
+                            </td>
+                            <td>{{ product.name }}</td>
+                            <td>{{ product.stockQuantity }}</td>
+                            <td style="text-align: center; vertical-align: middle;">
+                                <div style="display: flex; flex-direction: column; align-items: center; gap: 5px;">
+                                    <div style="font-size: 10px; text-decoration: line-through;">
+                                        {{ formatCurrencyVND(product.oldPrice) }}
+                                    </div>
+                                    <div>
+                                        {{ formatCurrencyVND(product.price) }}
+                                    </div>
+                                </div>
+                            </td>
+
+                            <td *ngIf="product.brand !== null">{{ product.brand.name || 'N/A' }}</td>
+                            <td *ngIf="product.brand  === null">KHông</td>
+                            <td>
+                                <ul>
+                                    <li *ngFor="let spec of product.productSpecifications">
+                                        {{ spec.specificationType.name }}: {{ spec.value }}
+                                    </li>
+                                </ul>
+                            </td>
+                            <td>
+                                <span [class.text-success]="product.isActive" [class.text-danger]="!product.isActive">
+                                    {{ product.isActive ? 'Active' : 'Inactive' }}
+                                </span>
+                            </td>
+                            <td>
+                                <div>
+                                    {{ product.createdAt | date:'short' }}
+                                </div>
+                                <div>
+                                    {{ product.updatedAt | date:'short' }}
+                                </div>
+                            </td>
+
+                            <td *ngIf="filter === 'Active' || filter === 'Inactive'">
+                                <input type="checkbox" [(ngModel)]="productCheckboxes[i]"
+                                    (change)="updateSelectAllState()" />
+                            </td>
+
+                            <td>
+                                <div class="icon-container">
+                                    <i *ngIf="filter !== 'Inactive'" (click)="updateProduct(product.productId)"
+                                        class="fas fa-edit"></i>
+                                    <i class="fas fa-undo" (click)="restoreProduct(product.productId)"
+                                        *ngIf="filter === 'Inactive'"></i>
+                                </div>
+                                <div (click)="onDeleteProduct(product.productId, product.isActive)"
+                                    class="icon-container">
+                                    <i class="fas fa-trash-alt"></i>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </ng-container>
+
+            <ng-template #noProducts>
+                <div class="text-center mt-3">
+                    <p>Không có thương hiệu nào để hiển thị.</p>
+                </div>
+            </ng-template>
+        </ng-container>
+
+        <ng-template #loading>
+            <div class="loading">Loading...</div>
+        </ng-template>
+    </div>
+
+    <div class="pagination">
+        <button (click)="previousPage()" [disabled]="page === 1">
+            <i class="fas fa-arrow-left"></i>
+        </button>
+
+        <span *ngIf="1 != page" (click)="changePage(1)">{{ 1 }}</span>
+
+        <!-- Show '...' before active page if page >= 5 -->
+        <span *ngIf="page > 2">...</span>
+
+        <!-- Active Page Number -->
+        <span class="active">{{ page }}</span>
+
+        <!-- Show '...' after active page if page < totalPages -->
+        <span *ngIf="page + 1 < totalPages">...</span>
+
+        <!-- Show Total Pages if Not Active -->
+        <span *ngIf="totalPages != page" (click)="changePage(totalPages)">{{ totalPages }}</span>
+
+        <button (click)="nextPage()" [disabled]="page === totalPages">
+            <i class="fas fa-arrow-right"></i>
+        </button>
+    </div>
+
+
+    <div *ngIf="isAddProductVisible" class="overlay" (click)="hideAddProduct()"></div>
+
+    <div *ngIf="isAddProductVisible" class="modal-container">
+        <app-add-or-update-product [productToUpdate]="productToUpdate" (close)="hideAddProduct()"
+            (add)="onAddProduct()">
+        </app-add-or-update-product>
+    </div>
+</div>

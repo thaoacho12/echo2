@@ -1,0 +1,86 @@
+.card {
+    display: flex;
+    transition: transform 0.3s, box-shadow 0.3s;
+    flex-direction: column;
+}
+
+.card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.card-img-top {
+    max-height: 200px;
+    object-fit: cover;
+}
+
+.iphone-logo img {
+    width: 100%;
+    /* Gấp đôi chiều rộng */
+    height: 100%;
+    /* Gấp đôi chiều cao */
+    object-fit: contain;
+    /* Đảm bảo giữ tỷ lệ */
+    margin: 0 auto;
+    /* Canh giữa */
+}
+
+.row {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.brand-item,
+.brand-iphone {
+    display: flex;
+    flex-direction: column;
+    /* Chắc chắn rằng các phần tử con nằm theo chiều dọc */
+    align-items: center;
+    justify-content: space-between;
+    /* Căn giữa hình ảnh và các thành phần khác nếu có */
+    height: 50%;
+    /* Chiều cao của mỗi block sẽ được cân bằng */
+    margin-bottom: 10px;
+}
+
+.img-fluid {
+    width: 100%;
+    /* Đảm bảo hình ảnh chiếm toàn bộ chiều rộng của block */
+    object-fit: cover;
+    /* Hình ảnh không bị méo và giữ tỷ lệ */
+}
+
+.current-price {
+    font-weight: bold;
+}
+
+.old-price {
+    text-decoration-line: line-through;
+}
+
+p {
+    margin: -18px 0 24px;
+    line-height: 1.8;
+}
+
+h5 {
+    font-size: 16px;
+    font-weight: 400;
+}
+
+p {
+    margin: 0px 0 0px;
+}
+
+.newestproductbox {
+    background-color: e8e8e8;
+    width: 100%;
+    padding-bottom: 13px;
+    margin-top: 15px;
+}
+
+.btn-sm {
+    width: 100%;
+    padding: 12px 22px;
+    font-size: 12px;
+}
